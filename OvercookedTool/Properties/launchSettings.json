@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OvercookedPasten": {
+      "commandName": "Project",
+      "commandLineArgs": "decrypt C:\\Users\\HaDeutscher\\AppData\\LocalLow\\Team17\\Overcooked2\\Saves\\48301228508887828\\Meta_SaveFile.save D:\\Data\\txtpool\\ocmeta.json 48301228508887828"
+    }
+  }
+}

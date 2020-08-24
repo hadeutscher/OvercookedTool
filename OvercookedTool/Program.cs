@@ -269,8 +269,45 @@ namespace OvercookedTool
             File.WriteAllBytes(dest_filename, data2);
         }
 
+        const string s_USAGE_MESSAGE = "Usage: .\\OvercookedTool.exe encrypt/decrypt inputFile outputFile userId";
         static void Main(string[] args)
         {
+            if(args.Length == 0)
+            {
+                Console.WriteLine(s_USAGE_MESSAGE);
+                return;
+            }
+
+            if(args.Length == 1)
+            {
+                string extension = Path.GetExtension(args[0]);
+                if(extension != ".json" && extension != ".save")
+                {
+                    Console.WriteLine(s_USAGE_MESSAGE);
+                    return;
+                }
+                
+                Console.WriteLine("Enter userId: ");
+                string userId = Console.ReadLine();
+
+                if(extension == ".json")
+                {
+                    string outputFile = $"{Path.GetFileNameWithoutExtension(args[0])}.save";
+                    Encrypt(args[0], outputFile, userId);
+                }
+                else
+                {
+                    string outputFile = $"{Path.GetFileNameWithoutExtension(args[0])}.json";
+                    Decrypt(args[0], outputFile, userId);
+                }
+                return;
+            }
+            if(args.Length != 4)
+            {
+                Console.WriteLine(s_USAGE_MESSAGE);
+                return;
+            }
+
             if (args[0] == "decrypt")
             {
                 Decrypt(args[1], args[2], args[3]);
@@ -281,7 +318,8 @@ namespace OvercookedTool
             }
             else
             {
-                Console.WriteLine("What?");
+                Console.WriteLine(s_USAGE_MESSAGE);
+                return;
             }
         }
     }

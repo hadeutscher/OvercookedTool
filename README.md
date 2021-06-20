@@ -10,7 +10,7 @@ Requires .NET Framework
 
 For each save game file (`*.save`) you wish to convert, decrypt using the existing user ID and then encrypt using the new user ID.
 
-The user IDs are the long numbers in the name of the directory where the save files are saved. For example, for Steam on Windows we have `C:\Users\username\AppData\LocalLow\Team17\Overcooked2\<STEAM_ID>\*.save`, for GOG Galaxy on Windows we have `C:\Users\username\AppData\LocalLow\Team17\Overcooked2\Saves\<GALAXY_ID>\*.save`
+The user IDs are the long numbers in the name of the directory where the save files are saved. For example, for Steam on Windows we have `C:\Users\username\AppData\LocalLow\Team17\Overcooked2\<STEAM_ID>\*.save`, and for GOG Galaxy on Windows we have `C:\Users\username\AppData\LocalLow\Team17\Overcooked2\Saves\<GALAXY_ID>\*.save`
 
 For example, to convert the Meta save file (which saves settings and cooks and various other metagame stuff):
 ```

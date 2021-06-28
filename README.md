@@ -4,7 +4,7 @@ A tool to convert Overcooked 2 saves between users/versions of the game.
 
 ## Requirements
 
-Requires .NET Framework
+Requires [.NET Runtime 3.1](https://dotnet.microsoft.com/download/dotnet/3.1).
 
 ## Usage
 

@@ -165,24 +165,25 @@ namespace OvercookedTool
             }
             byte[] array = new byte[16];
             Array.Copy(obfuscatedText, start, array, 0, 16);
-            byte[] array2 = new byte[size - 16 - start];
-            Array.Copy(obfuscatedText, 16, array2, 0, array2.Length);
             byte[] bytes = new PasswordDeriveBytes(pwd, Encoding.ASCII.GetBytes(salt), hashFunction, 2).GetBytes(keySize / 8);
             RijndaelManaged rijndaelManaged = new RijndaelManaged();
             rijndaelManaged.Mode = CipherMode.CBC;
-            byte[] array3 = new byte[array2.Length];
             try
             {
                 using (ICryptoTransform transform = rijndaelManaged.CreateDecryptor(bytes, array))
                 {
-                    using (MemoryStream memoryStream = new MemoryStream(array2))
+                    using (MemoryStream memoryStream = new MemoryStream(obfuscatedText, start + 16, size - 16))
                     {
                         using (CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Read))
                         {
-                            cryptoStream.Read(array3, 0, array3.Length);
+                            int total = 0;
+                            byte[] array2 = new byte[size];
+                            for (int read; (read = cryptoStream.Read(array2, total, size - total)) != 0; total += read) { }
                             memoryStream.Close();
                             cryptoStream.Close();
-                            return array3;
+                            byte[] result = new byte[total];
+                            Array.Copy(array2, result, total);
+                            return result;
                         }
                     }
                 }

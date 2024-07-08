@@ -179,7 +179,11 @@ namespace OvercookedTool
                     {
                         using (CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Read))
                         {
-                            cryptoStream.Read(array3, 0, array3.Length);
+			    // Modification from decompiled code: Repeat .Read() for .NET 6+.  See:
+			    // https://learn.microsoft.com/dotnet/core/compatibility/core-libraries/6.0/partial-byte-reads-in-streams
+			    // Original code:
+                            // cryptoStream.Read(array3, 0, array3.Length);
+			    for (int read, total = 0; (read = cryptoStream.Read(array3, total, array3.Length - total)) != 0; total += read) { }
                             memoryStream.Close();
                             cryptoStream.Close();
                             return array3;
